@@ -1,0 +1,24 @@
+
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÁÜÄ„úÿÿÿÿ8›ôªéØ,
+Fsquid:S1148c"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Ïˆ°—Ø,
+>squid:S3010" Remove this assignment of "out".(à¿ÅÉ8›ôªéØ,
+[
+squid:S106B"9Replace this use of System.out or System.err by a logger.(ÄªÀÿÿÿÿÿ8ù¬éØ,
+Xsquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8›ôªéØ,
+=squid:S3010"Remove this assignment of "in".(èØØˆ8›ôªéØ,
+V
+squid:S106"9Replace this use of System.out or System.err by a logger.(Áã·8›ôªéØ,
+Fsquid:S1148."#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8›ôªéØ,
+Nsquid:S1172"+Remove this unused method parameter "host".(ÃÉ¿Šüÿÿÿÿ8›ôªéØ,
+squid:S1450"\Remove the "requestPocket" field and declare it as a local variable in the relevant methods.(ª¡äıûÿÿÿÿ8ù¬éØ,
+V
+squid:S106<"9Replace this use of System.out or System.err by a logger.(æ¸¸è8ù¬éØ,
+>squid:S2129" Remove this "String" constructor(ÿÊ˜Û8›ôªéØ,
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(—çúÿÿÿÿ8›ôªéØ,
+V
+squid:S1066"9Replace this use of System.out or System.err by a logger.(É²”–8ù¬éØ,
+Xsquid:S2209A"5Change this instance-reference to a static reference.(Šˆ°ÿÿÿÿÿ8ù¬éØ,
+{
+squid:S1354"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ8ŠÕÒêØ,
