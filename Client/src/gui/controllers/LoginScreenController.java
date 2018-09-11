@@ -23,7 +23,7 @@ public class LoginScreenController {
 
     @FXML
     public void Login(){
-        client.sendRequest("TEST");
+//        client.sendRequest("TEST");
         if(cRemember.isSelected()){
             System.out.println("PRZEJSCIE DO OKNA WYBORU BAY KLUCZY.ZAPAMIETUJE DANE");
         }else{

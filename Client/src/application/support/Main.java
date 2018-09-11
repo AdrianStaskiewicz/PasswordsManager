@@ -16,11 +16,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String host = "127.0.0.1";
-        int port = 8081;
-        Client client = new Client(host, port);
+        String host = "localhost";
+        int port = 8080;
 
-        FXMLLoader loader = new FXMLLoader();
+        String[] connectionParameters = {host};
+        Client client = new Client(connectionParameters);
+
+        /*FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/gui/scopes/MainScreen.fxml"));
         StackPane stackpane = loader.load();
 
@@ -30,6 +32,6 @@ public class Main extends Application {
         Scene scene = new Scene(stackpane,600,400);
         primaryStage.setScene(scene);
         primaryStage.setTitle("PasswordsManager 1.0.0");
-        primaryStage.show();
+        primaryStage.show();*/
     }
 }

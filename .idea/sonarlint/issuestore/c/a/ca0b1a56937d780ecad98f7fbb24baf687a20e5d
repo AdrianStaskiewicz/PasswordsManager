@@ -1,27 +1,27 @@
 
-Esquid:S2189X""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8šÌêØ,
-Qsquid:S1444".Make this "public static database" field final(©Øèüÿÿÿÿ8šÌêØ,
-Msquid:S20932"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8šÌêØ,
-Msquid:S2093S"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8šÌêØ,
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ØÄÀîıÿÿÿÿ8šÌêØ,
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÅÙ8šÌêØ,
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÂìÖâøÿÿÿÿ8šÌêØ,
-nsquid:CommentedOutCodeLine^"<This block of commented-out lines of code should be removed.(·—Ü‡ûÿÿÿÿ8šÌêØ,
-U
-squid:S106"9Replace this use of System.out or System.err by a logger.(Ã³œ	8šÌêØ,
 V
-squid:S106<"9Replace this use of System.out or System.err by a logger.( –ŞÔ8šÌêØ,
+squid:S106b"9Replace this use of System.out or System.err by a logger.(Œé¼ï8šÌêØ,
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÂìÖâøÿÿÿÿ8šÌêØ,
+csquid:S2259F"@A "NullPointerException" could be thrown; "in" is nullable here.(€¶º‡ıÿÿÿÿ8šÌêØ,
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ØÄÀîıÿÿÿÿ8šÌêØ,
+Asquid:S1148h"#Use a logger to log this exception.(Ç’Çê8šÌêØ,
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÅÙ8šÌêØ,
+_squid:S2259G"AA "NullPointerException" could be thrown; "out" is nullable here.(„¸Ç§8šÌêØ,
+[
+squid:S106V"9Replace this use of System.out or System.err by a logger.(¤ë¾ şÿÿÿÿ8šÌêØ,
+Asquid:S1148J"#Use a logger to log this exception.(Ç’Çê8šÌêØ,
 V
 squid:S106>"9Replace this use of System.out or System.err by a logger.(ÕÔî8šÌêØ,
 [
 squid:S106C"9Replace this use of System.out or System.err by a logger.(«×¢øûÿÿÿÿ8šÌêØ,
-[
-squid:S106V"9Replace this use of System.out or System.err by a logger.(¤ë¾ şÿÿÿÿ8šÌêØ,
+Msquid:S2093S"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8šÌêØ,
 V
-squid:S106b"9Replace this use of System.out or System.err by a logger.(Œé¼ï8šÌêØ,
-"squid:ClassVariableVisibilityCheck"TMake database a static final constant or non-public and provide accessors if needed.(©Øèüÿÿÿÿ8šÌêØ,
-csquid:S2259F"@A "NullPointerException" could be thrown; "in" is nullable here.(€¶º‡ıÿÿÿÿ8šÌêØ,
-_squid:S2259G"AA "NullPointerException" could be thrown; "out" is nullable here.(„¸Ç§8šÌêØ,
-Asquid:S1148J"#Use a logger to log this exception.(Ç’Çê8šÌêØ,
-Asquid:S1148h"#Use a logger to log this exception.(Ç’Çê8šÌêØ,
+squid:S106<"9Replace this use of System.out or System.err by a logger.( –ŞÔ8šÌêØ,
+Qsquid:S1444".Make this "public static database" field final(©Øèüÿÿÿÿ8šÌêØ,
+nsquid:CommentedOutCodeLine^"<This block of commented-out lines of code should be removed.(·—Ü‡ûÿÿÿÿ8šÌêØ,
+Esquid:S2189X""Add an end condition to this loop.(˜ïˆÿÿÿÿÿ8šÌêØ,
+U
+squid:S106"9Replace this use of System.out or System.err by a logger.(Ã³œ	8šÌêØ,
 Xsquid:S1161/":Add the "@Override" annotation above this method signature(“–ış8šÌêØ,
+Msquid:S20932"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8šÌêØ,
+"squid:ClassVariableVisibilityCheck"TMake database a static final constant or non-public and provide accessors if needed.(©Øèüÿÿÿÿ8šÌêØ,

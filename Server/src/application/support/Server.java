@@ -1,108 +1,74 @@
 package application.support;
 
-import database.support.DatabaseConnector;
-
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.PrintStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.net.ServerSocket;
 
-public class Server extends Thread {
-    public static final int PORT_NUMBER = 8081;
+public class Server {
 
-    protected Socket socket;
-    public static DatabaseConnector database = new DatabaseConnector();
-    //db.connect();
+    // The default port number.
+    public static int portNumber = 8080;
+    // The default server socket.
+    private static ServerSocket serverSocket = null;
+    // The default client socket.
+    private static Socket clientSocket = null;
+    // Limit of clients number per session
+    private static final int maxClientsCount = 2;
+    //Array of threads supporting client connections
+    private static final ClientThread[] threads = new ClientThread[maxClientsCount];
 
-    private Server(Socket socket) {
-        this.socket = socket;
-        //this.database = new DatabaseConnector();
-        System.out.println("New client connected from " + socket.getInetAddress().getHostAddress());
-        start();
+    public Server(){
+
     }
 
-    private String generateAnswer(String request){
-        //request = request.substring(0, request.length()-1);
-        String answer="1111111";
-        if(request.equals("0000000")){
-            answer="0000001";
-        }
-        if(request.equals("0000011")){
-            answer="0000100";
-        }
-        if(request.equals("0000110")){
-            answer="0000111";
-        }
-        if(request.equals("0010000")){
-            answer="0010001";
-        }
-        return answer;
-    }
+    public Server(String[] args){
+        initializeConnectionParameters(args);
 
-    public void run(){
-        InputStream in = null;
-        OutputStream out = null;
-        try{
-            in = socket.getInputStream();
-            out = socket.getOutputStream();
+        openSocket();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
-            String request;
-
-            while((request = br.readLine()) != null){
-                if(!request.isEmpty()){
-                    System.out.println("Message received:" + request);
-                    request = generateAnswer(request)+'\n';
-                    System.out.println("Message send:" + request);
-                    out.write(request.getBytes());
-                }
-            }
-        }catch(IOException ex){
-            System.out.println("Unable to get streams from client");
-        }finally{
-            try{
-                in.close();
-                out.close();
-                socket.close();
-            } catch (IOException ex){
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime date;
-        ServerSocket server = null;
-        try {
-            server = new ServerSocket(PORT_NUMBER);
-            date = LocalDateTime.now();
-            System.out.println(dtf.format(date)+ " [LOG] Server started");
-            database.connect();
-            while (true) {
-                /**
-                 * create a new {@link SocketServer} object for each connection
-                 * this will allow multiple client connections
-                 */
-                new Server(server.accept());
-                //database.connect();
-            }
-        } catch (IOException ex) {
-            date = LocalDateTime.now();
-            System.out.println(dtf.format(date)+ " [LOG] Unable to start server");
-        } finally {
+        //Waiting for clients connections
+        while (true) {
             try {
-                if (server != null)
-                    server.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                clientSocket = serverSocket.accept();
+                int i = 0;
+                for (i = 0; i < maxClientsCount; i++) {
+                    if (threads[i] == null) {
+                        (threads[i] = new ClientThread(clientSocket, threads)).start();
+                        break;
+                    }
+                }
+
+                if (i == maxClientsCount) {
+                    PrintStream os = new PrintStream(clientSocket.getOutputStream());
+                    os.println("Server too busy. Try later.");
+                    os.close();
+                    clientSocket.close();
+                }
+            } catch (IOException e) {
+                System.out.println(e);
             }
+        }
+    }
+
+
+    public static void initializeConnectionParameters(String[] args){
+        if (args.length < 1) {
+            System.err.println("[LOG] [Server} Using default port number: " + portNumber);
+        } else {
+            portNumber = Integer.valueOf(args[0]).intValue();
+            System.err.println("[LOG] [Server} Using custom port number: " + portNumber);
+        }
+    }
+
+    public static void openSocket(){
+        try {
+            serverSocket = new ServerSocket(portNumber);
+            System.err.print("[LOG] [Server] Default socket created successfully.");
+        } catch (IOException e) {
+            System.out.println(e);
+            System.err.print("[LOG] [Server] Default socket creation failed.");
         }
     }
 }
