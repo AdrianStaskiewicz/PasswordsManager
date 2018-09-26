@@ -1,17 +1,19 @@
 
+[
+squid:S106A"9Replace this use of System.out or System.err by a logger.(èàÂìüÿÿÿÿ8ÒğÂîà,
+Fsquid:S1148H"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÒğÂîà,
+Msquid:S1068"*Remove this unused "client" private field.(‚Ø–øùÿÿÿÿ8ıÓ»ÍÜ,
+Fsquid:S11489"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8€ŠÆîà,
 T
-squid:S106*"9Replace this use of System.out or System.err by a logger.(¢øüßùÿÿÿÿ
-nsquid:CommentedOutCodeLine!"<This block of commented-out lines of code should be removed.(­¡Ş¥úÿÿÿÿ8‘×•Ø,
-T
-squid:S106:"9Replace this use of System.out or System.err by a logger.(èàÂìüÿÿÿÿ
-?squid:S1148A"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-T
-squid:S106"9Replace this use of System.out or System.err by a logger.(ğ“ëÿÿÿÿÿ
-ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜›°Îøÿÿÿÿ
-fsquid:S001009"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òŒáí
-N
-squid:S106"9Replace this use of System.out or System.err by a logger.(—“—}
-Esquid:S1068"'Remove this unused "tmp" private field.(Úµ¢¿8¶ö­™Ø,
-Ssquid:S2209"5Change this instance-reference to a static reference.(¾–šÈ8ßú—™Ø,
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÓşºÔúÿÿÿÿ
+xsquid:S1450"URemove the "client" field and declare it as a local variable in the relevant methods.(‚Ø–øùÿÿÿÿ8ıÓ»ÍÜ,
 bsquid:CommentedOutCodeLine#"<This block of commented-out lines of code should be removed.(‘ªƒğ
-?squid:S11481"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Esquid:S1068"'Remove this unused "tmp" private field.(Úµ¢¿8¶ö­™Ø,
+nsquid:CommentedOutCodeLine!"<This block of commented-out lines of code should be removed.(­¡Ş¥úÿÿÿÿ8áŸùíİ,
+O
+squid:S106"9Replace this use of System.out or System.err by a logger.(ÆÜ‹
+ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜›°Îøÿÿÿÿ
+[
+squid:S1062"9Replace this use of System.out or System.err by a logger.(¢øüßùÿÿÿÿ8€ŠÆîà,
+fsquid:S00100."NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òŒáí
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(´ÉÉÂıÿÿÿÿ8ıÓ»ÍÜ,

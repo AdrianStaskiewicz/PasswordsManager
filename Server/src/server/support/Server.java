@@ -1,6 +1,7 @@
-package application.support;
+package server.support;
 
-import java.io.DataInputStream;
+import database.support.DatabaseConnector;
+
 import java.io.PrintStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -18,6 +19,8 @@ public class Server {
     private static final int maxClientsCount = 2;
     //Array of threads supporting client connections
     private static final ClientThread[] threads = new ClientThread[maxClientsCount];
+    //Database connector
+    public static DatabaseConnector database = new DatabaseConnector();
 
     public Server(){
 
@@ -27,7 +30,7 @@ public class Server {
         initializeConnectionParameters(args);
 
         openSocket();
-
+        database.connect();
         //Waiting for clients connections
         while (true) {
             try {
@@ -35,7 +38,7 @@ public class Server {
                 int i = 0;
                 for (i = 0; i < maxClientsCount; i++) {
                     if (threads[i] == null) {
-                        (threads[i] = new ClientThread(clientSocket, threads)).start();
+                        (threads[i] = new ClientThread(clientSocket, threads, database)).start();
                         break;
                     }
                 }
@@ -55,20 +58,20 @@ public class Server {
 
     public static void initializeConnectionParameters(String[] args){
         if (args.length < 1) {
-            System.err.println("[LOG] [Server} Using default port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Server} Using default port number: " + portNumber);
         } else {
             portNumber = Integer.valueOf(args[0]).intValue();
-            System.err.println("[LOG] [Server} Using custom port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Server} Using custom port number: " + portNumber);
         }
     }
 
     public static void openSocket(){
         try {
             serverSocket = new ServerSocket(portNumber);
-            System.err.print("[LOG] [Server] Default socket created successfully.");
+            System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Server] Default socket created successfully.");
         } catch (IOException e) {
             System.out.println(e);
-            System.err.print("[LOG] [Server] Default socket creation failed.");
+            System.err.print(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Server] Default socket creation failed.");
         }
     }
 }

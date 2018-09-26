@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
@@ -8,27 +9,32 @@ import server.support.Client;
 
 import java.io.IOException;
 
-public class MainScreenController {
+import static gui.controllers.LoadScreenController.*;
 
-    private Client client;
+public class MainScreenController extends AbstractScreenController{
+
+//    private Client client;
 
     @FXML
     private StackPane mainStackPane;
 
     @FXML
+    @Override
     public void initialize(){
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
+//       FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/gui/scopes/LoadScreen.fxml"));
         GridPane gridPane = null;
         try {
             gridPane = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LoginScreenController loginScreenController = loader.getController();
-        loginScreenController.setMainScreenController(this);
-        loginScreenController.setClient(client);
+        LoadScreenController loadScreenController = loader.getController();
+        loadScreenController.setMainScreenController(this);
+//        loadScreenController.setClient(client);
         setScreen(gridPane);
+        loadScreenController.afterInit();
+//        setFullScreen();
     }
 
     public void setScreen(GridPane gridPane){
@@ -36,7 +42,8 @@ public class MainScreenController {
         mainStackPane.getChildren().add(gridPane);
     }
 
-    public void setClient(Client client){
-        this.client = client;
-    }
+//    public void setClient(Client client){
+//        this.client = client;
+//    }
+
 }

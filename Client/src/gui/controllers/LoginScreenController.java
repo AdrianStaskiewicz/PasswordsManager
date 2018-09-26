@@ -22,12 +22,12 @@ public class LoginScreenController {
     private Label lNotification;
 
     @FXML
-    public void Login(){
+    public void Login() {
 //        client.sendRequest("TEST");
-        if(cRemember.isSelected()){
-            System.out.println("PRZEJSCIE DO OKNA WYBORU BAY KLUCZY.ZAPAMIETUJE DANE");
-        }else{
-            System.out.println("PRZEJSCIE DO OKNA WYBORU BAY KLUCZY.NIE ZAPAMIETUJE DANYCH");
+        if (cRemember.isSelected()) {
+            System.out.println("PRZEJSCIE DO OKNA WYBORU BAZ KLUCZY. ZAPAMIETUJE DANE");
+        } else {
+            System.out.println("PRZEJSCIE DO OKNA WYBORU BAZ KLUCZY. NIE ZAPAMIETUJE DANYCH");
         }
 
         //Client.sendRequest("TEST");
@@ -39,6 +39,14 @@ public class LoginScreenController {
             lNotification.setText("Incorrect login or password!");
         }*/
 
+       this.goToSelectionScreen();
+    }
+
+    @FXML
+    public void SignUp() {
+        this.goToRegisterScreen();
+    }
+    public void goToSelectionScreen(){
         System.out.println("PRZEJSCIE DO OKNA BAZ DANYCH");//LOG
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/gui/scopes/SelectionScreen.fxml"));
@@ -50,11 +58,10 @@ public class LoginScreenController {
         }
         SelectionScreenController selectionScreenController = loader.getController();
         selectionScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
-        mainScreenController.setScreen(gridPane);
+        //mainScreenController.setScreen(gridPane);
     }
 
-    @FXML
-    public void SignUp(){
+    public void goToRegisterScreen() {
         System.out.println("PRZEJSCIE DO OKNA REJESTRACJI");//LOG
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(this.getClass().getResource("/gui/scopes/RegisterScreen.fxml"));
@@ -67,13 +74,14 @@ public class LoginScreenController {
         RegisterScreenController registerScreenController = loader.getController();
         registerScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
         mainScreenController.setScreen(gridPane);
+        this.mainScreenController.primaryStage.setFullScreen(true);
     }
 
-    public void setMainScreenController(MainScreenController mainScreenController){
+    public void setMainScreenController(MainScreenController mainScreenController) {
         this.mainScreenController = mainScreenController;
     }
 
-    public void setClient(Client client){
+    public void setClient(Client client) {
         this.client = client;
     }
 }

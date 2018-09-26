@@ -1,37 +1,66 @@
 package application.support;
 
-import gui.controllers.MainScreenController;
+import gui.controllers.LoadScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
-import server.support.Client;
+import javafx.stage.StageStyle;
+import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.scene.Parent;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
-    public static void Main(String[] args){
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String host = "localhost";
-        int port = 8080;
 
-        String[] connectionParameters = {host};
-        Client client = new Client(connectionParameters);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/scopes/LoadScreen.fxml"));
+        Parent root = loader.load();
+        LoadScreenController loadScreenController = loader.getController();
 
-        /*FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/gui/scopes/MainScreen.fxml"));
-        StackPane stackpane = loader.load();
-
-        MainScreenController mainScreenController = loader.getController();
-        mainScreenController.setClient(client);
-
-        Scene scene = new Scene(stackpane,600,400);
-        primaryStage.setScene(scene);
         primaryStage.setTitle("PasswordsManager 1.0.0");
-        primaryStage.show();*/
+        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+
+        final Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                for (int i = 1; i <= 100000000; i++) {
+                    updateProgress(i, 100000000);
+                    updateMessage("Sprawdzanie aktualizacji: "+i/1000000+"%");
+                }
+
+                return null;
+            }
+        };
+
+
+        task.setOnSucceeded((Event event) -> {
+            FXMLLoader innerLoader = new FXMLLoader(getClass().getResource("/gui/scopes/LoginScreen.fxml"));
+            try {
+                Stage stage = new Stage();
+                Parent innerRoot = innerLoader.load();
+                stage.setTitle("PasswordsManager 1.0.0");
+                stage.setScene(new Scene(innerRoot, 800, 500));
+                stage.setMaximized(true);
+                stage.show();
+                primaryStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        loadScreenController.getPBSplashValue().progressProperty().bind(task.progressProperty());
+        loadScreenController.getlProgressLabel().textProperty().bind(task.messageProperty());
+
+        new Thread(task).start();
+    }
+
+    public static void Main(String[] args) {
+        launch(args);
     }
 }

@@ -1,6 +1,6 @@
 package application.support;
 
-import database.support.DatabaseConnector;
+import server.support.Server;
 
 public class Main {
     public static void main(String[] args) {
