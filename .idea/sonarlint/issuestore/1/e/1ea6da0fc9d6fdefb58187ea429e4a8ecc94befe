@@ -1,37 +1,0 @@
-
-:squid:S1643P"Use a StringBuilder instead.(Öî‰€8·ı³©İ,
-U
-squid:S1062"9Replace this use of System.out or System.err by a logger.(œ²Œ8·ı³©İ,
-V
-squid:S106"9Replace this use of System.out or System.err by a logger.(‡º†˜8·ı³©İ,
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‰«÷ùÿÿÿÿ8®ñûªİ,
-jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(«ß½˜8ÜüÈ©İ,
-Fsquid:S1148!"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-Gsquid:S1148—"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ñûªİ,
-V
-squid:S106?"9Replace this use of System.out or System.err by a logger.(ñüÖø8·ı³©İ,
-Fsquid:S1148t"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÃÇªİ,
-]squid:S2259v"@A "NullPointerException" could be thrown; "rs" is nullable here.(¶Ë‘@8Ê²Çªİ,
-isquid:CommentedOutCodeLineã"<This block of commented-out lines of code should be removed.(Õì<8·ı³©İ,
-;squid:S1643ç"Use a StringBuilder instead.(ÀÌ‰ 8·ı³©İ,
-Fsquid:S11485"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-Ksquid:S1481‘"'Remove this unused "rs" local variable.(ÀÇÄûÿÿÿÿ8®ñûªİ,
-psquid:S2077r"RUse a variable binding mechanism to construct this query instead of concatenation.(¢ÿ¹8ŒÃÂ©İ,
-qsquid:S2077•"RUse a variable binding mechanism to construct this query instead of concatenation.(®·Çï8®ñûªİ,
-]squid:S2259^"@A "NullPointerException" could be thrown; "rs" is nullable here.(¶Ë‘@8·ı³©İ,
-hsquid:S2259{"EA "NullPointerException" could be thrown; "message" is nullable here.(Í† úÿÿÿÿ8¯èÈªİ,
-[
-squid:S106,"9Replace this use of System.out or System.err by a logger.(Ä’»•ùÿÿÿÿ8·ı³©İ,
-Gsquid:S1148é"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-Fsquid:S1148L"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-:squid:S1643`"Use a StringBuilder instead.(Öî‰€8·ı³©İ,
-[
-squid:S106"9Replace this use of System.out or System.err by a logger.(ûÅˆâùÿÿÿÿ8·ı³©İ,
-isquid:CommentedOutCodeLinei"<This block of commented-out lines of code should be removed.(”÷„·8üÈ©İ,
-[
-squid:S106/"9Replace this use of System.out or System.err by a logger.(íÈ“ºşÿÿÿÿ8·ı³©İ,
-]squid:S2259N"@A "NullPointerException" could be thrown; "rs" is nullable here.(¶Ë‘@8·ı³©İ,
-Fsquid:S1148B"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-Fsquid:S1148\"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8·ı³©İ,
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¼›ï8·ı³©İ,
-psquid:S2077Z"RUse a variable binding mechanism to construct this query instead of concatenation.(¢ÿ¹8·ı³©İ,

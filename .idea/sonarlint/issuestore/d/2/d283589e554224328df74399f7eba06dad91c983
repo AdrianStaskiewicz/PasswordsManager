@@ -1,27 +1,0 @@
-
-V
-squid:S106F"9Replace this use of System.out or System.err by a logger.(óË Í8ÓÏğÍÜ,
-[
-squid:S106K"9Replace this use of System.out or System.err by a logger.(ò„‰ùøÿÿÿÿ8ÓÏğÍÜ,
-[
-squid:S1069"9Replace this use of System.out or System.err by a logger.(«¸•Äûÿÿÿÿ8¬çÔÎÜ,
-\squid:S2130J"9Use "Integer.parseInt" for this string-to-int conversion.(„Œ°™ÿÿÿÿÿ8¬çÔÎÜ,
-Fsquid:S1148c"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¬çÔÎÜ,
-[
-squid:S106?"9Replace this use of System.out or System.err by a logger.(¸Îİ¢úÿÿÿÿ8¬çÔÎÜ,
-_squid:CallToDeprecatedMethod8"0Remove this use of "readLine"; it is deprecated.(«­†È8¬çÔÎÜ,
-Š"squid:ClassVariableVisibilityCheck"PMake host a static final constant or non-public and provide accessors if needed.(˜˜‹­ûÿÿÿÿ8èŸÊÍÜ,
-[
-squid:S106G"9Replace this use of System.out or System.err by a logger.(«Œñ¦ıÿÿÿÿ8¬çÔÎÜ,
-"squid:ClassVariableVisibilityCheck"VMake portNumber a static final constant or non-public and provide accessors if needed.(ÅÊĞ¶úÿÿÿÿ8èŸÊÍÜ,
-V
-squid:S106L"9Replace this use of System.out or System.err by a logger.(øÌœÖ8¬çÔÎÜ,
-[
-squid:S106/"9Replace this use of System.out or System.err by a logger.(¸Îİ¢úÿÿÿÿ8¹ÿÕÎÜ,
-[
-squid:S106W"9Replace this use of System.out or System.err by a logger.(¹”¼’ûÿÿÿÿ8¬çÔÎÜ,
-Ssquid:S2696="6Make the enclosing method "static" or remove this set.(ú•îR8¬çÔÎÜ,
-Ssquid:S1444"0Make this "public static portNumber" field final(ÅÊĞ¶úÿÿÿÿ8èŸÊÍÜ,
-V
-squid:S106Y"9Replace this use of System.out or System.err by a logger.(ä’‚ƒ8¬çÔÎÜ,
-Msquid:S1444"*Make this "public static host" field final(˜˜‹­ûÿÿÿÿ8èŸÊÍÜ,

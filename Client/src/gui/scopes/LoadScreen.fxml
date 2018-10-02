@@ -3,9 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -15,21 +18,36 @@
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="74.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="150.0" valignment="CENTER" vgrow="SOMETIMES" />
         <RowConstraints valignment="CENTER" />
         <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="49.0" valignment="CENTER" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <Pane prefHeight="200.0" prefWidth="600.0">
             <children>
-                <Label text="Passwords Manager" textFill="#1600c4">
+                <ImageView fitHeight="102.0" fitWidth="101.0" layoutX="38.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@/gui/resources/LoadScreenLogo.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="145.0" layoutY="52.0" text="%loadscreen.applicationname.firstpart" textFill="#ffffff">
                     <font>
-                        <Font size="41.0" />
+                        <Font name="Gadugi Bold" size="53.0" />
+                    </font>
+                </Label>
+                <Label layoutX="297.0" layoutY="102.0" text="%loadscreen.applicationname.secondpart" textFill="#ffffff">
+                    <font>
+                        <Font name="Gadugi Bold" size="32.0" />
+                    </font>
+                </Label>
+                <Label layoutX="440.0" layoutY="124.0" text="%loadscreen.versionnumber" textFill="#ffffff">
+                    <font>
+                        <Font name="Gadugi Bold" size="13.0" />
                     </font>
                 </Label>
             </children>
-        </HBox>
-        <HBox alignment="CENTER" prefWidth="200.0" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+        </Pane>
+        <HBox alignment="CENTER" prefHeight="145.0" prefWidth="600.0" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
             <children>
                 <ProgressBar fx:id="pbProgressBar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="15.0" progress="0.0" styleClass="progress-bar" stylesheets="@/gui/styles/LoadScreenStyle.css" />

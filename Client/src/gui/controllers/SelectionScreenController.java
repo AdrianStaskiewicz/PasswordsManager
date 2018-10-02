@@ -1,11 +1,11 @@
 package gui.controllers;
 
 import javafx.fxml.FXML;
-
-//import javax.swing.text.html.ListView;
 import javafx.scene.control.ListView;
 
-public class SelectionScreenController {
+//import javax.swing.text.html.ListView;
+
+public class SelectionScreenController extends AbstractScreenController {
 
     private MainScreenController mainScreenController;
 

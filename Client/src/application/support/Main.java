@@ -11,13 +11,24 @@ import javafx.event.Event;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+
+//        Properties config = new Properties();
+//        config.load();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/scopes/LoadScreen.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
+        loader.setResources(bundle);
+//        loader.setResources(config);
         Parent root = loader.load();
         LoadScreenController loadScreenController = loader.getController();
 
@@ -40,7 +51,9 @@ public class Main extends Application {
 
 
         task.setOnSucceeded((Event event) -> {
-            FXMLLoader innerLoader = new FXMLLoader(getClass().getResource("/gui/scopes/LoginScreen.fxml"));
+            FXMLLoader innerLoader = new FXMLLoader(getClass().getResource("/gui/scopes/MainScreen.fxml"));
+            //ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
+            innerLoader.setResources(bundle);
             try {
                 Stage stage = new Stage();
                 Parent innerRoot = innerLoader.load();

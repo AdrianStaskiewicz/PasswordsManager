@@ -1,19 +1,21 @@
 package gui.controllers;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import server.support.Client;
 
 import java.io.IOException;
 
 public class AbstractScreenController {
+    public MainScreenController mainScreenController;
+    private Client client;
+    private String tmp;
+
     public Stage primaryStage= new Stage();
     public FXMLLoader loader = new FXMLLoader();
 
-    @FXML
+    /*@FXML
     public void initialize(){
         loader.setLocation(this.getClass().getResource("/gui/scopes/MainScreen.fxml"));
         StackPane stackpane = null;
@@ -35,7 +37,7 @@ public class AbstractScreenController {
 
         onInit();
         afterInit();
-    }
+    }*/
 
     public void onInit(){
 
@@ -54,7 +56,30 @@ public class AbstractScreenController {
     }
 
     public void goToScreen(){
-        LoadScreenController loadScreenController = new LoadScreenController();
-        loadScreenController.initialize();
+        //LoadScreenController loadScreenController = new LoadScreenController();
+        //loadScreenController.initialize();
+    }
+
+    public void setMainScreenController(MainScreenController mainScreenController) {
+        this.mainScreenController = mainScreenController;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public void goToSelectionScreen() {
+        System.out.println("PRZEJSCIE DO OKNA BAZ DANYCH");//LOG
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/gui/scopes/SelectionScreen.fxml"));
+        GridPane gridPane = null;
+        try {
+            gridPane = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SelectionScreenController selectionScreenController = loader.getController();
+        selectionScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
+        this.mainScreenController.setScreen(gridPane);
     }
 }

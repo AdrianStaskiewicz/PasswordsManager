@@ -68,18 +68,18 @@ public class DatabaseConnector {
     }
 
     public String doQuery1() throws SQLException {
-            ResultSet rs=null;
-            String message="";
+        ResultSet rs=null;
+        String message="";
         try {
             rs = statement.executeQuery("SELECT * FROM Users");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         int columns = rs.getMetaData().getColumnCount();
-            while (rs.next()) {
-                message=message+printRow(rs,columns);
-            }
-            return message;
+        while (rs.next()) {
+            message=message+printRow(rs,columns);
+        }
+        return message;
     }
 
     public String doQuery2(String pswd) throws SQLException {
@@ -130,17 +130,17 @@ public class DatabaseConnector {
             }
         }
     }
-/*
-    public String newUserCredentialsAvailabilityCheck(){
+    /*
+        public String newUserCredentialsAvailabilityCheck(){
 
-    }
-    public String userDataGenerate(){
+        }
+        public String userDataGenerate(){
 
-    }
-    public String userLogin(){
+        }
+        public String userLogin(){
 
-    }
-    */
+        }
+        */
     public String newUserRegister(String[] parameters){
         ResultSet rs=null;
 

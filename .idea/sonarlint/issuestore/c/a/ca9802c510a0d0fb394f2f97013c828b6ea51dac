@@ -1,11 +1,0 @@
-
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ï®å‡8ó ×îà,
-Fsquid:S1148,"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8µæÕñà,
-nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(üÂòÌþÿÿÿÿ8ó ×îà,
-isquid:CommentedOutCodeLine4"<This block of commented-out lines of code should be removed.(ôö’€8µæÕñà,
-ksquid:S1854$"HRemove this useless assignment to local variable "loadScreenController".(±ž”Üûÿÿÿÿ8 ÕÕñà,
-usquid:UselessImportCheck"ERemove this unused import 'gui.controllers.AbstractScreenController'.(»úÓœüÿÿÿÿ8§‰²ðà,
-rsquid:S00100:"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹±ÆÐüÿÿÿÿ8µæÕñà,
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¬¡”ˆ8ó ×îà,
-osquid:S1223:"LRename this method to prevent any misunderstanding or make it a constructor.(¹±ÆÐüÿÿÿÿ8µæÕñà,
-isquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(‡ŽÖ¥8µæÕñà,

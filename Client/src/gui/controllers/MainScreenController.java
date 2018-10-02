@@ -1,17 +1,13 @@
 package gui.controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.GridPane;
-import server.support.Client;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
-import static gui.controllers.LoadScreenController.*;
-
-public class MainScreenController extends AbstractScreenController{
+public class MainScreenController extends AbstractScreenController {
 
 //    private Client client;
 
@@ -19,21 +15,22 @@ public class MainScreenController extends AbstractScreenController{
     private StackPane mainStackPane;
 
     @FXML
-    @Override
     public void initialize(){
 //       FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/gui/scopes/LoadScreen.fxml"));
+        loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
+        loader.setResources(bundle);
         GridPane gridPane = null;
         try {
             gridPane = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LoadScreenController loadScreenController = loader.getController();
-        loadScreenController.setMainScreenController(this);
+        LoginScreenController loginScreenController = loader.getController();
+        loginScreenController.setMainScreenController(this);
 //        loadScreenController.setClient(client);
         setScreen(gridPane);
-        loadScreenController.afterInit();
+//        loadScreenController.afterInit();
 //        setFullScreen();
     }
 

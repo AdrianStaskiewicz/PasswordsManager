@@ -1,34 +1,19 @@
 package gui.controllers;
 
-import gui.handlers.LoadScreenHandler;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.Task;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import server.support.Client;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import server.support.Client;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class LoadScreenController extends AbstractScreenController implements Initializable {
 
@@ -49,14 +34,14 @@ public class LoadScreenController extends AbstractScreenController implements In
     Scene scene;
     public Stage stage;
 
-    @Override
+    /*@Override
     public void initialize() {
         this.stage= stage;
         this.scene=scene;
         //this.afterInit();
         //primaryStage.close();
         //goToLoginPage();
-    }
+    }*/
 
     public ProgressBar getPBSplashValue()
     {
