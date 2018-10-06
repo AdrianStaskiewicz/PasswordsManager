@@ -11,5 +11,15 @@
         <property name="applicationName" value="DataGrip" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="PasswordManagerLocalDatabase@localhost" uuid="68fa32a7-fccf-4d2e-b019-fa184badb49e">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost:1433;database=PasswordManagerLocalDatabase</jdbc-url>
+      <driver-properties>
+        <property name="appName" value="DataGrip" />
+        <property name="applicationName" value="DataGrip" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

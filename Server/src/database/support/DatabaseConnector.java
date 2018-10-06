@@ -110,18 +110,26 @@ public class DatabaseConnector {
         ResultSet rs=null;
         String message=null;
         try {
-            String query = "SELECT Password FROM Users WHERE Login = '"+parameters[1]+"' OR Mail = '"+parameters[1]+"'";
-            rs = statement.executeQuery(query);
+            if(parameters.length>=2) {
+                String query = "SELECT Password FROM Users WHERE Login = '" + parameters[1] + "' OR Mail = '" + parameters[1] + "'";
+                rs = statement.executeQuery(query);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        int columns = rs.getMetaData().getColumnCount();
-        while (rs.next()) {
-            message=printRow(rs,columns).substring(1);
+        if(rs!=null){
+            int columns = rs.getMetaData().getColumnCount();
+            while (rs.next()) {
+                message=printRow(rs,columns).substring(1);
+            }
+        }
+
+        if(message==null){
+        message="";
         }
 
         if(message.isEmpty()){
-            return "USER DOESN'T EXIST";
+            return "User doesn't exist";
         }else{
             if(message.equals(parameters[2])){
                 return "WELCOME IN PASSWORD MANAGER";

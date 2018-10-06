@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import database.support.DatabaseConnector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class LoadScreenController extends AbstractScreenController implements Initializable {
 
     private MainScreenController mainScreenController;
+    private DatabaseConnector localDatabase;
     private Client client;
     private String tmp;
     private GridPane gridPane = null;
@@ -123,6 +125,10 @@ public class LoadScreenController extends AbstractScreenController implements In
 
     public void setMainScreenController(MainScreenController mainScreenController) {
         this.mainScreenController = mainScreenController;
+    }
+
+    public void setLocalDatabase(DatabaseConnector localDatabase){
+        this.localDatabase = localDatabase;
     }
 
     public void setClient(Client client) {

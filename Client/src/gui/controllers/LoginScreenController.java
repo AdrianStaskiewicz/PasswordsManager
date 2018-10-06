@@ -1,19 +1,27 @@
 package gui.controllers;
 
+import database.support.DatabaseConnector;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import server.support.Client;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginScreenController extends AbstractScreenController {
 
-    //private MainScreenController mainScreenController;
+    private DatabaseConnector localDatabase;
     private Client client;
-    private String tmp;
+    private String request;
+    private String response;
+
+    @FXML
+    private TextField tfUserName;
+
+    @FXML
+    private PasswordField pfPassword;
 
     @FXML
     private CheckBox cRemember;
@@ -21,25 +29,61 @@ public class LoginScreenController extends AbstractScreenController {
     @FXML
     private Label lNotification;
 
+
+    /*public void init() {
+        String rememberUser = null;
+        try {
+            rememberUser = localDatabase.rememberUserCheck();
+            if (localDatabase.rememberUserCheck() != null) {
+                String[] parameters = new String[3];
+                parameters = rememberUser.split("\\s");
+                runLoginProcedureForUser(parameters[1], parameters[2]);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+
     @FXML
     public void Login() {
-//        client.sendRequest("TEST");
-        if (cRemember.isSelected()) {
-            System.out.println("PRZEJSCIE DO OKNA WYBORU BAZ KLUCZY. ZAPAMIETUJE DANE");
+        //init();
+        request = "login ";
+
+        if (tfUserName.getText() == null) {
+            displayNotification("Username field is empty!");
         } else {
-            System.out.println("PRZEJSCIE DO OKNA WYBORU BAZ KLUCZY. NIE ZAPAMIETUJE DANYCH");
+            if (tfUserName.getText().isEmpty()) {
+                displayNotification("Username field is empty!");
+            } else {
+                if (pfPassword.getText() == null) {
+                    displayNotification("Password field is empty!");
+                } else {
+                    if(pfPassword.getText().isEmpty()){
+                        displayNotification("Password field is empty!");
+                    }else{
+                        client.sendRequest(request + tfUserName.getText() + " " + pfPassword.getText());
+                        response = client.getResponse();
+                    }
+                }
+            }
         }
 
-        //Client.sendRequest("TEST");
-       /* //weryfikacja
-        if(Verifyaccount()){
-            System.out.println("WERYFIKACJA POMYSLNA");
-        }else{
-            System.out.println("BLAD");
-            lNotification.setText("Incorrect login or password!");
-        }*/
+        if (response == null) {
+            response = "Cos poszlo nie tak. Sprobuj ponownie";
+        }
 
-        this.goToSelectionScreen();
+        if (response.equals("WELCOME IN PASSWORD MANAGER")) {
+            if (cRemember.isSelected()) {
+                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: TRUE");
+            } else {
+                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: FALSE");
+            }
+            goToSelectionScreen();
+        } else {
+            displayNotification(response);
+            clearForm();
+        }
+
     }
 
     @FXML
@@ -47,39 +91,48 @@ public class LoginScreenController extends AbstractScreenController {
         this.goToRegisterScreen();
     }
 
-//    public void goToSelectionScreen() {
-//        System.out.println("PRZEJSCIE DO OKNA BAZ DANYCH");//LOG
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(this.getClass().getResource("/gui/scopes/SelectionScreen.fxml"));
-//        GridPane gridPane = null;
-//        try {
-//            gridPane = loader.load();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        SelectionScreenController selectionScreenController = loader.getController();
-//        selectionScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
-//        mainScreenController.setScreen(gridPane);
-//    }
-
-    public void goToRegisterScreen() {
-        System.out.println("PRZEJSCIE DO OKNA REJESTRACJI");//LOG
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/gui/scopes/RegisterScreen.fxml"));
-        GridPane gridPane = null;
-        try {
-            gridPane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+    /*public void runLoginProcedureForUser(String username, String password) {
+        //baza jesli ma polaczenie synchronizuje z kontem internetowym
+        if (localDatabase.onlineAccountCheck(username)) {
+            if (connectionCheck()) {
+                //synchronizuj
+            }
         }
-        RegisterScreenController registerScreenController = loader.getController();
-        registerScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
-        mainScreenController.setScreen(gridPane);
-        this.mainScreenController.primaryStage.setFullScreen(true);
+        //loguj
+    }*/
+
+    /*public Boolean connectionCheck() {
+        client.sendRequest("check");
+        response = client.getResponse();
+        if (response != null) {
+            if (response.equals("ok")) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+
+    public void displayNotification(String response) {
+        lNotification.setText(response);
+    }
+
+    public void clearForm() {
+        tfUserName.clear();
+        pfPassword.clear();
     }
 
     @Override
     public void setMainScreenController(MainScreenController mainScreenController) {
         this.mainScreenController = mainScreenController;
+    }
+
+    /*@Override
+    public void setLocalDatabase(DatabaseConnector localDatabase) {
+        this.localDatabase = localDatabase;
+    }*/
+
+    @Override
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

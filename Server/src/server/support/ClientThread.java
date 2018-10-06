@@ -12,9 +12,15 @@ import java.sql.SQLException;
 
 class ClientThread extends Thread {
 
-    private DataInputStream is = null;
-    private PrintStream os = null;
-    private Socket clientSocket = null;
+    // The client socket
+    private static Socket clientSocket = null;
+    // The output stream
+    private static PrintStream os = null;
+    // The input stream
+    private static DataInputStream is = null;
+    // The request line from client
+    private static String requestLine = null;
+
     private final ClientThread[] threads;
     private int maxClientsCount;
     DatabaseConnector database;
@@ -27,46 +33,60 @@ class ClientThread extends Thread {
     }
 
     public void run() {
+
         int maxClientsCount = this.maxClientsCount;
         ClientThread[] threads = this.threads;
 
         try {
-
-            //Creating input and output streams
-            is = new DataInputStream(clientSocket.getInputStream());
-            os = new PrintStream(clientSocket.getOutputStream());
+            openStreams();
 
             //Sending a welcome message here
-            os.println("Enter your name.");
-            String name = is.readLine().trim();
+            //os.println("Enter your name.");
+            //String name = is.readLine().trim();
 
-            os.println("Hello " + name
-                    + " to our chat room.\nTo leave enter /quit in a new line");
+            //os.println("Hello " + name
+                //    + " to our chat room.\nTo leave enter /quit in a new line");
 
             while (true) {
 
-
                 //READING MESSAGES
-                String line = is.readLine();
-                if (line.startsWith("/quit")) {
+                requestLine = is.readLine();
+
+                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Server] Request from client: " + requestLine);
+
+                if (requestLine.startsWith("/quit")) {
+                    //Sending a exit message method here
+                    sendResponse("CONNECTION CLOSE");
+
+                    //Making a space method here
+                    for (int i = 0; i < maxClientsCount; i++) {
+                        if (threads[i] == this) {
+                            threads[i] = null;
+                        }
+                    }
+
+                    closeStreamsAndSocket();
                     break;
                 }
 
                 //ANALYZING REQUEST
                 String test = null;
                 try {
-                    if(line.contains("login")){
+                    if (requestLine.contains("login")) {
                         String[] parameters = new String[3];
-                        parameters = line.split("\\s");
+                        parameters = requestLine.split("\\s");
                         test = database.userCredentialsVerification(parameters);
-                    }
-                    else{
-                        if(line.contains("add")){
+                    } else {
+                        if (requestLine.contains("add")) {
                             String[] parameters = new String[3];
-                            parameters = line.split("\\s");
+                            parameters = requestLine.split("\\s");
                             test = database.newUserRegister(parameters);
-                        }else{
-                            test = "nie rozpoznano polecenia";
+                        } else {
+                            if(requestLine.contains("check")){
+                                test="ok";
+                            }else{
+                                test = "nie rozpoznano polecenia";
+                            }
                         }
 
                     }
@@ -75,30 +95,38 @@ class ClientThread extends Thread {
                 }
 
                 //SENDING MESSAGES
-                if(!test.equals(" ")){
-                    os.println(test);
-                }else{
-                    os.println("ERROR");
+                if (test!=null) {
+                    sendResponse(test);
+                } else {
+                    os.println("Bledny login lub haslo");
                 }
             }
 
-            //Sending a exit message method here
-            os.println("*** Bye " + name + " ***");
+        } catch (IOException e) {
+        }
+    }
 
-            //Making a space method here
-            for (int i = 0; i < maxClientsCount; i++) {
-                if (threads[i] == this) {
-                    threads[i] = null;
-                }
-            }
+    public static void sendResponse(String response) {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Server] Response to client: " + response);
+        os.println(response.trim());
+    }
 
-            /*
-             * Close the output stream, close the input stream, close the socket.
-             */
-            is.close();
+    public static void openStreams() {
+        try {
+            is = new DataInputStream(clientSocket.getInputStream());
+            os = new PrintStream(clientSocket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void closeStreamsAndSocket() {
+        try {
             os.close();
+            is.close();
             clientSocket.close();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

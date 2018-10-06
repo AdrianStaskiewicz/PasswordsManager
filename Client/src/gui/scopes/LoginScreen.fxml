@@ -7,15 +7,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.LoginScreenController">
+<GridPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@/gui/styles/CommonStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.LoginScreenController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -25,22 +27,47 @@
         <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="49.0" valignment="CENTER" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-                <Label text="Passwords Manager" textFill="#1600c4">
-                    <font>
-                        <Font size="41.0" />
-                    </font>
-                </Label>
+                <Pane prefHeight="200.0" prefWidth="600.0">
+                    <children>
+                        <ImageView fitHeight="102.0" fitWidth="101.0" layoutX="38.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                            <image>
+                                <Image url="@/gui/resources/LoadScreenLogo.png" />
+                            </image>
+                        </ImageView>
+                        <Label layoutX="145.0" layoutY="52.0" text="Password" styleClass="logo" stylesheets="@/gui/styles/CommonStyle.css" textFill="#ffffff">
+                            <font>
+                                <Font name="Gadugi Bold" size="53.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="297.0" layoutY="102.0" text="Manager" styleClass="logo" stylesheets="@/gui/styles/CommonStyle.css" textFill="#ffffff">
+                            <font>
+                                <Font name="Gadugi Bold" size="32.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="440.0" layoutY="124.0" text="1.0.0" styleClass="logo" stylesheets="@/gui/styles/CommonStyle.css" textFill="#ffffff">
+                            <font>
+                                <Font name="Gadugi Bold" size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
             </children>
         </HBox>
         <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="2">
             <children>
-                <Label text="%loginscreen.label.register" textFill="#3a3a3a" />
-                <Button fx:id="bSign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SignUp" style="-fx-background-color: none;" text="%loginscreen.button.register" textFill="#1600c4" underline="true">
+                <Label text="%loginscreen.label.register" textFill="#3a3a3a">
+                    <font>
+                        <Font name="Gadugi" size="12.0" />
+                    </font></Label>
+                <Button fx:id="bSign" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#SignUp" styleClass="link" stylesheets="@/gui/styles/CommonStyle.css" text="%loginscreen.button.register" textFill="#1600c4" underline="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
+                    <font>
+                        <Font name="Gadugi" size="12.0" />
+                    </font>
                 </Button>
             </children>
         </HBox>
@@ -48,7 +75,11 @@
             <children>
                 <VBox alignment="CENTER">
                     <children>
-                        <Label fx:id="lNotification" alignment="BOTTOM_CENTER" text="" textAlignment="CENTER" />
+                        <Label fx:id="lNotification" alignment="BOTTOM_CENTER" text="" textAlignment="CENTER">
+                        <font>
+                            <Font name="Gadugi" size="12.0" />
+                        </font>
+                        </Label>
                         <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
                             <columnConstraints>
                                 <ColumnConstraints halignment="RIGHT" maxWidth="145.0" minWidth="-Infinity" />
@@ -64,8 +95,16 @@
                                 <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                             <children>
-                                <Label text="%loginscreen.label.username" textFill="#3a3a3a" />
-                                <Label layoutX="263.0" layoutY="40.0" text="%loginscreen.label.password" textFill="#3a3a3a" GridPane.rowIndex="1" />
+                                <Label text="%loginscreen.label.username" textFill="#3a3a3a">
+                                <font>
+                                    <Font name="Gadugi" size="12.0" />
+                                </font>
+                                </Label>
+                                <Label layoutX="263.0" layoutY="40.0" text="%loginscreen.label.password" textFill="#3a3a3a" GridPane.rowIndex="1">
+                                <font>
+                                    <Font name="Gadugi" size="12.0" />
+                                </font>
+                                </Label>
                                 <TextField fx:id="tfUserName" promptText="%loginscreen.textfield.username" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" />
                                 <PasswordField fx:id="pfPassword" promptText="%loginscreen.passwordfield.password" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -83,10 +122,14 @@
                                                 <Cursor fx:constant="HAND" />
                                             </cursor>
                                         </CheckBox>
-                                        <Label text="%loginscreen.label.rememberme" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label text="%loginscreen.label.rememberme" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <font>
+                                            <Font name="Gadugi" size="12.0" />
+                                        </font>
+                                        </Label>
                                     </children>
                                 </GridPane>
-                                <Button fx:id="bLogin" mnemonicParsing="false" onAction="#Login" style="-fx-background-color: #1600c4;" text="%loginscreen.button.login" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                <Button fx:id="bLogin" mnemonicParsing="false" onAction="#Login" text="%loginscreen.button.login" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>

@@ -20,6 +20,8 @@ public class Client implements Runnable {
     public static int portNumber = 8080;
     // The default host.
     public static String host = "localhost";
+    // The respone line from server
+    public static String responseLine;
 
     private static BufferedReader inputLine = null;
     private static boolean closed = false;
@@ -34,29 +36,26 @@ public class Client implements Runnable {
         openStreamsAndSocket();
 
         if (clientSocket != null && os != null && is != null) {
-            try {
 
                 /* Create a thread to read from the server. */
                 new Thread(new Client()).start();
+
                 while (!closed) {
-                    os.println(inputLine.readLine().trim());
+                    sendRequest();
                 }
 
                 closeStreamsAndSocket();
-            } catch (IOException e) {
-                System.err.println("IOException:  " + e);
-            }
         }
     }
 
     public void run() {
 
-        String responseLine;
         try {
             while ((responseLine = is.readLine()) != null) {
-                System.out.println(responseLine);
-                if (responseLine.indexOf("CONNECTION CLOSE") != -1)
+
+                if (responseLine.indexOf("CONNECTION CLOSE") != -1){
                     break;
+                }
             }
             closed = true;
         } catch (IOException e) {
@@ -67,13 +66,13 @@ public class Client implements Runnable {
 
     public static void initializeConnectionParameters(String[] args){
         if (args.length < 2) {
-            System.err.println("[LOG] [Client} Using default host: " +host);
-            System.err.println("[LOG] [Client} Using default port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default port number: " + portNumber);
         } else {
             host = args[0];
             portNumber = Integer.valueOf(args[1]).intValue();
-            System.err.println("[LOG] [Client} Using custom host: " +host);
-            System.err.println("[LOG] [Client} Using custom port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom port number: " + portNumber);
         }
     }
 
@@ -84,9 +83,9 @@ public class Client implements Runnable {
             os = new PrintStream(clientSocket.getOutputStream());
             is = new DataInputStream(clientSocket.getInputStream());
         } catch (UnknownHostException e) {
-            System.err.println("[LOG] [Client} Unknown host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Unknown host: " +host);
         } catch (IOException e) {
-            System.err.println("[LOG] [Client} Couldn't get I/O for the connection to the host " + host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Couldn't get I/O for the connection to the host " + host);
         }
     }
 
@@ -98,5 +97,23 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void sendRequest(){
+        try {
+            os.println(inputLine.readLine().trim());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendRequest(String request){
+        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Request to server: "+request);
+            os.println(request.trim());
+    }
+
+    public static String getResponse(){
+        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Response from server: "+responseLine);
+        return responseLine;
     }
 }

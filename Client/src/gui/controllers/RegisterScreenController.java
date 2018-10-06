@@ -7,21 +7,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import server.support.Client;
 
 import java.io.IOException;
 
-public class RegisterScreenController {
+public class RegisterScreenController extends AbstractScreenController{
 
-    private MainScreenController mainScreenController;
+//    private MainScreenController mainScreenController;
+    private Client client;
 
     @FXML
     private Label lNotification;
 
     @FXML
-    private TextField tfName;
+    private TextField tfForename;
 
     @FXML
-    private TextField tfUserName;
+    private TextField tfSurename;
+
+    @FXML
+    private TextField tfEmail;
+
+    @FXML
+    private TextField tfUsername;
 
     @FXML
     private PasswordField pfPassword;
@@ -30,7 +38,7 @@ public class RegisterScreenController {
     private PasswordField pfRepeatPassword;
 
     @FXML
-    private TextField tfEmail;
+    private CheckBox cStatus;
 
     @FXML
     private CheckBox cAccept;
@@ -42,24 +50,24 @@ public class RegisterScreenController {
 
     @FXML
     public void SignUp(){
+        String request = "reg";
 
+        client.sendRequest(request);
+        //String response=client.getResponse();
     }
 
     @FXML
     public void LogIn(){
-        System.out.println("PRZEJSCIE DO OKNA LOGOWANIA");//LOG
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
-        GridPane gridPane = null;
-        try {
-            gridPane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mainScreenController.setScreen(gridPane);
+        goToLoginScreen();
+//        goToSelectionScreen();
     }
 
+    @Override
     public void setMainScreenController(MainScreenController mainScreenController){
         this.mainScreenController = mainScreenController;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

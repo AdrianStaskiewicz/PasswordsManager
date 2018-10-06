@@ -1,4 +1,4 @@
-//package algorithms;
+package algorithms;
 //
 //public class TaskManager {
 //    public Thread[] tasksList;
