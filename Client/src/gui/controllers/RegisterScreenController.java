@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import database.support.DatabaseConnector;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class RegisterScreenController extends AbstractScreenController{
 
 //    private MainScreenController mainScreenController;
+    private DatabaseConnector localDatabase;
     private Client client;
 
     @FXML
@@ -65,6 +67,10 @@ public class RegisterScreenController extends AbstractScreenController{
     @Override
     public void setMainScreenController(MainScreenController mainScreenController){
         this.mainScreenController = mainScreenController;
+    }
+
+    public void setLocalDatabase(DatabaseConnector localDatabase){
+        this.localDatabase=localDatabase;
     }
 
     public void setClient(Client client) {

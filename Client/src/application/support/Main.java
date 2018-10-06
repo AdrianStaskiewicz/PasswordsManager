@@ -25,7 +25,7 @@ public class Main extends Application {
     Integer progress=0;
     Client client;
     //Database connector
-    DatabaseConnector localDatabase;
+    DatabaseConnector localDatabase = new DatabaseConnector();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,22 +36,19 @@ public class Main extends Application {
                 System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Client initialization");
                     String[] arg= new String[1];
                     client = new Client(arg);
-                    client.sendRequest("TEST");
-                    client.getResponse();
-                    client.getResponse();
             }
         });
         thread2.start();
 
-//        Thread thread3 = new Thread(new Runnable() {
-//            public void run() {
-//                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Local database connection");
+        Thread thread3 = new Thread(new Runnable() {
+            public void run() {
+                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] LOCAL DATABASE: database connection");
 //                String[] arg= new String[1];
-//                 localDatabase = new DatabaseConnector();
-//            }
-//        });
-//
-//        thread3.start();
+                 localDatabase.connect();
+            }
+        });
+
+        thread3.start();
         //NA CHWILE
 
 
@@ -66,7 +63,7 @@ public class Main extends Application {
         Parent root = loader.load();
         LoadScreenController loadScreenController = loader.getController();
         loadScreenController.setClient(client);
-//        loadScreenController.setLocalDatabase(localDatabase);
+        loadScreenController.setLocalDatabase(localDatabase);
 
         primaryStage.setTitle("PasswordsManager 1.0.0");
         primaryStage.setScene(new Scene(root, 600, 400));

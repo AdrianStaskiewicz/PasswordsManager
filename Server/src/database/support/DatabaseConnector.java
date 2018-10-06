@@ -132,9 +132,9 @@ public class DatabaseConnector {
             return "User doesn't exist";
         }else{
             if(message.equals(parameters[2])){
-                return "WELCOME IN PASSWORD MANAGER";
+                return "Welcome in Password Manager";
             }else{
-                return "INVALID PASSWORD";
+                return "Invalid password";
             }
         }
     }

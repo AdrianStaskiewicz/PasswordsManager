@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 public class AbstractScreenController {
     public MainScreenController mainScreenController;
-//    private DatabaseConnector localDatabase;
+    private DatabaseConnector localDatabase;
     private Client client;
 
     public Stage primaryStage= new Stage();
@@ -66,9 +66,9 @@ public class AbstractScreenController {
         this.mainScreenController = mainScreenController;
     }
 
-    /*public void setLocalDatabase(DatabaseConnector localDatabase) {
+    public void setLocalDatabase(DatabaseConnector localDatabase) {
         this.localDatabase = localDatabase;
-    }*/
+    }
 
     public void setClient(Client client) {
         this.client = client;

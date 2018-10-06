@@ -26,25 +26,25 @@ public class Client implements Runnable {
     private static BufferedReader inputLine = null;
     private static boolean closed = false;
 
-    public Client(){
+    public Client() {
 
     }
 
-    public Client(String[] args){
+    public Client(String[] args) {
         initializeConnectionParameters(args);
 
         openStreamsAndSocket();
 
         if (clientSocket != null && os != null && is != null) {
 
-                /* Create a thread to read from the server. */
-                new Thread(new Client()).start();
+            /* Create a thread to read from the server. */
+            new Thread(new Client()).start();
 
-                while (!closed) {
-                    sendRequest();
-                }
+            while (!closed) {
+//                    sendRequest();
+            }
 
-                closeStreamsAndSocket();
+            closeStreamsAndSocket();
         }
     }
 
@@ -53,7 +53,7 @@ public class Client implements Runnable {
         try {
             while ((responseLine = is.readLine()) != null) {
 
-                if (responseLine.indexOf("CONNECTION CLOSE") != -1){
+                if (responseLine.indexOf("CONNECTION CLOSE") != -1) {
                     break;
                 }
             }
@@ -64,32 +64,32 @@ public class Client implements Runnable {
     }
 
 
-    public static void initializeConnectionParameters(String[] args){
+    public static void initializeConnectionParameters(String[] args) {
         if (args.length < 2) {
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default host: " + host);
             System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default port number: " + portNumber);
         } else {
             host = args[0];
             portNumber = Integer.valueOf(args[1]).intValue();
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom host: " + host);
             System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom port number: " + portNumber);
         }
     }
 
-    public static void openStreamsAndSocket(){
+    public static void openStreamsAndSocket() {
         try {
             clientSocket = new Socket(host, portNumber);
             inputLine = new BufferedReader(new InputStreamReader(System.in));
             os = new PrintStream(clientSocket.getOutputStream());
             is = new DataInputStream(clientSocket.getInputStream());
         } catch (UnknownHostException e) {
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Unknown host: " +host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Unknown host: " + host);
         } catch (IOException e) {
             System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Couldn't get I/O for the connection to the host " + host);
         }
     }
 
-    public static void closeStreamsAndSocket(){
+    public static void closeStreamsAndSocket() {
         try {
             os.close();
             is.close();
@@ -99,7 +99,7 @@ public class Client implements Runnable {
         }
     }
 
-    public static void sendRequest(){
+    public static void sendRequest() {
         try {
             os.println(inputLine.readLine().trim());
         } catch (IOException e) {
@@ -107,13 +107,17 @@ public class Client implements Runnable {
         }
     }
 
-    public static void sendRequest(String request){
-        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Request to server: "+request);
-            os.println(request.trim());
+    public static void sendRequest(String request) {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Request to server: " + request);
+        os.println(request.trim());
     }
 
-    public static String getResponse(){
-        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Response from server: "+responseLine);
+    public static String getResponse() {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Response from server: " + responseLine);
         return responseLine;
+    }
+
+    public static void clearResponse() {
+        responseLine = null;
     }
 }

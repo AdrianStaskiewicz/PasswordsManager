@@ -29,8 +29,7 @@ public class LoginScreenController extends AbstractScreenController {
     @FXML
     private Label lNotification;
 
-
-    /*public void init() {
+    public void autologinCheck() {
         String rememberUser = null;
         try {
             rememberUser = localDatabase.rememberUserCheck();
@@ -42,11 +41,13 @@ public class LoginScreenController extends AbstractScreenController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     @FXML
     public void Login() {
-        //init();
+//        client.sendRequest("PUSTY");
+
+        autologinCheck();
         request = "login ";
 
         if (tfUserName.getText() == null) {
@@ -58,32 +59,37 @@ public class LoginScreenController extends AbstractScreenController {
                 if (pfPassword.getText() == null) {
                     displayNotification("Password field is empty!");
                 } else {
-                    if(pfPassword.getText().isEmpty()){
+                    if (pfPassword.getText().isEmpty()) {
                         displayNotification("Password field is empty!");
-                    }else{
+                    } else {
                         client.sendRequest(request + tfUserName.getText() + " " + pfPassword.getText());
+//                        waitForResponse();
                         response = client.getResponse();
+
+                        if(response==null){
+                            while(response==null){
+                                response=client.getResponse();
+                            }
+                            response=client.getResponse();
+                            client.clearResponse();
+                        }
+
+                        if (response.equals("Welcome in Password Manager")) {
+                            if (cRemember.isSelected()) {
+                                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: TRUE");
+                            } else {
+                                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: FALSE");
+                            }
+                            goToSelectionScreen();
+                        } else {
+                            displayNotification(response);
+                            clearForm();
+                        }
+
                     }
                 }
             }
         }
-
-        if (response == null) {
-            response = "Cos poszlo nie tak. Sprobuj ponownie";
-        }
-
-        if (response.equals("WELCOME IN PASSWORD MANAGER")) {
-            if (cRemember.isSelected()) {
-                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: TRUE");
-            } else {
-                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Optional parameter REMEMBER ME set on: FALSE");
-            }
-            goToSelectionScreen();
-        } else {
-            displayNotification(response);
-            clearForm();
-        }
-
     }
 
     @FXML
@@ -91,7 +97,20 @@ public class LoginScreenController extends AbstractScreenController {
         this.goToRegisterScreen();
     }
 
-    /*public void runLoginProcedureForUser(String username, String password) {
+//    public void waitForResponse() {
+//        while (client.getResponse() == null) {
+//            while ((response = client.getResponse())==null) {
+//
+//            }
+//        }
+//
+//        if (response != null) {
+//            while ((response = client.getResponse()).isEmpty()) {
+//            }
+//        }
+//    }
+
+    public void runLoginProcedureForUser(String username, String password) {
         //baza jesli ma polaczenie synchronizuje z kontem internetowym
         if (localDatabase.onlineAccountCheck(username)) {
             if (connectionCheck()) {
@@ -99,9 +118,9 @@ public class LoginScreenController extends AbstractScreenController {
             }
         }
         //loguj
-    }*/
+    }
 
-    /*public Boolean connectionCheck() {
+    public Boolean connectionCheck() {
         client.sendRequest("check");
         response = client.getResponse();
         if (response != null) {
@@ -110,7 +129,7 @@ public class LoginScreenController extends AbstractScreenController {
             }
         }
         return false;
-    }*/
+    }
 
     public void displayNotification(String response) {
         lNotification.setText(response);
@@ -126,10 +145,10 @@ public class LoginScreenController extends AbstractScreenController {
         this.mainScreenController = mainScreenController;
     }
 
-    /*@Override
+    @Override
     public void setLocalDatabase(DatabaseConnector localDatabase) {
         this.localDatabase = localDatabase;
-    }*/
+    }
 
     @Override
     public void setClient(Client client) {

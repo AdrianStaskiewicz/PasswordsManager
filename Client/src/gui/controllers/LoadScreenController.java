@@ -105,24 +105,6 @@ public class LoadScreenController extends AbstractScreenController implements In
         pbProgressBar.setProgress(value);
     }
 
-//    public void goToLoginPage() {
-//        System.out.println("PRZEJSCIE DO OKNA LOGOWANIA");//LOG
-//        setFullScreen();
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
-//        GridPane gridPane = null;
-//        try {
-//            gridPane = loader.load();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        setFullScreen();
-//        LoginScreenController loginScreenController = loader.getController();
-//
-//        loginScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
-//        mainScreenController.setScreen(gridPane);
-//    }
-
     public void setMainScreenController(MainScreenController mainScreenController) {
         this.mainScreenController = mainScreenController;
     }

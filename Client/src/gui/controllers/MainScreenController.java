@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import database.support.DatabaseConnector;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
 
 public class MainScreenController extends AbstractScreenController {
 
+    private DatabaseConnector localDatabase;
     private Client client;
 
     @FXML
@@ -30,6 +32,7 @@ public class MainScreenController extends AbstractScreenController {
         }
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setMainScreenController(this);
+//        loginScreenController.autologinCheck();
         setScreen(gridPane);
     }
 

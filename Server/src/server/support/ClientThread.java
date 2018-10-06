@@ -40,6 +40,7 @@ class ClientThread extends Thread {
         try {
             openStreams();
 
+//            sendResponse("welcome");
             //Sending a welcome message here
             //os.println("Enter your name.");
             //String name = is.readLine().trim();
