@@ -21,6 +21,7 @@ public class LoadScreenController extends AbstractScreenController implements In
     private MainScreenController mainScreenController;
     private DatabaseConnector localDatabase;
     private Client client;
+
     private String tmp;
     private GridPane gridPane = null;
 
@@ -35,15 +36,6 @@ public class LoadScreenController extends AbstractScreenController implements In
     Task copyWorker;
     Scene scene;
     public Stage stage;
-
-    /*@Override
-    public void initialize() {
-        this.stage= stage;
-        this.scene=scene;
-        //this.afterInit();
-        //primaryStage.close();
-        //goToLoginPage();
-    }*/
 
     public ProgressBar getPBSplashValue()
     {

@@ -21,49 +21,56 @@ import java.util.ResourceBundle;
 
 public class Main extends Application {
 
-    String message=new String();
-    Integer progress=0;
-    Client client;
+    String message = new String();
+    Integer progress = 0;
+
+    //Server connector
+    public Client client=null;
     //Database connector
-    DatabaseConnector localDatabase = new DatabaseConnector();
+    public DatabaseConnector localDatabase=null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //NA CHWILE
-        Thread thread2 = new Thread(new Runnable() {
+        Thread SCinit = new Thread(new Runnable() {
             public void run() {
-                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Client initialization");
-                    String[] arg= new String[1];
-                    client = new Client(arg);
+                String[] arg = new String[1];
+                client = new Client(arg);
+                System.out.println("SCinit finished");
             }
         });
-        thread2.start();
+//        SCinit.start();
 
-        Thread thread3 = new Thread(new Runnable() {
+        Thread LDBCinit = new Thread(new Runnable() {
             public void run() {
-                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] LOCAL DATABASE: database connection");
-//                String[] arg= new String[1];
-                 localDatabase.connect();
+                localDatabase = new DatabaseConnector();
+                localDatabase.connect();
+                System.out.println("LDBCinit finished");
+                //notifyAll();
             }
         });
+        SCinit.start();
+        LDBCinit.start();
+//        while(LDBCinit.isAlive()&&SCinit.isAlive()){
+//
+//        }
+//        System.out.println("LOL");
 
-        thread3.start();
-        //NA CHWILE
-
-
-//        Properties config = new Properties();
-//        config.load();
-
-        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Loading view: LOAD SCREEN");
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Loading view: LOAD SCREEN");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/scopes/LoadScreen.fxml"));
         ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
         loader.setResources(bundle);
-//        loader.setResources(config);
+
         Parent root = loader.load();
         LoadScreenController loadScreenController = loader.getController();
-        loadScreenController.setClient(client);
-        loadScreenController.setLocalDatabase(localDatabase);
+        while(client==null){
+            //System.out.println("Client == null");
+        }
+        while(localDatabase==null){
+            System.out.println("Local Database == null");
+        }
+//        loadScreenController.setClient(client);
+//        loadScreenController.setLocalDatabase(this.localDatabase);
 
         primaryStage.setTitle("PasswordsManager 1.0.0");
         primaryStage.setScene(new Scene(root, 600, 400));
@@ -72,51 +79,54 @@ public class Main extends Application {
 
 
         //NA CHWILE
-        Thread thread = new Thread(new Runnable() {
+        Thread SLinit = new Thread(new Runnable() {
             public void run() {
-
                 try {
-                    message="Ladowanie ustawien systemu ";
-                    progress=0;
-                    Thread.sleep(2000);
-                    message="Tworzenie instancji klienta ";
+                    //SCinit.start();
+                    message = "Ladowanie ustawien systemu ";
+                    progress = 0;
                     Thread.sleep(1000);
-                    message="Nawiazywanie polaczenia z serwerem ";
-                    Thread.sleep(2000);
-                    message="Sprawdzanie poprawnosci polaczenia ";
+                    message = "Tworzenie instancji klienta ";
                     Thread.sleep(1000);
-                    message="Weryfikowanie polaczenia ze zdalna baza danych ";
+                    while(SCinit.isAlive()){
+                    }
+//                    LDBCinit.start();
+                    message = "Nawiazywanie polaczenia z serwerem ";
+                    Thread.sleep(1000);
+                    while(LDBCinit.isAlive()){
+
+                    }
+                    message = "Sprawdzanie poprawnosci polaczenia ";
+                    Thread.sleep(1000);
+                    message = "Weryfikowanie polaczenia ze zdalna baza danych ";
                     Thread.sleep(2000);
-                    message="Sprawdzanie aktualizacji ";
+                    message = "Sprawdzanie aktualizacji ";
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
             }
         });
-
-        thread.start();
-        //NA CHWILE
+        SLinit.start();
 
         final Task task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
                 for (int i = 1; i <= 100000000; i++) {
                     updateProgress(i, 100000000);
-                    updateMessage(message+i/1000000+"%");
+                    updateMessage(message + i / 1000000 + "%");
+                    while(LDBCinit.isAlive()){
+                    }
                 }
                 return null;
             }
         };
 
-
         task.setOnSucceeded((Event event) -> {
-            System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Loading view: MAIN SCREEN");
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Loading view: MAIN SCREEN");
             FXMLLoader innerLoader = new FXMLLoader(getClass().getResource("/gui/scopes/MainScreen.fxml"));
-            //ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
             innerLoader.setResources(bundle);
-//            MainScreenController mainScreenController = loader.getController();
-//            mainScreenController.setClient(client);
+            MainScreenController mainScreenController = new MainScreenController();
+            mainScreenController.setLocalDatabase(this.localDatabase);
             try {
                 Stage stage = new Stage();
                 Parent innerRoot = innerLoader.load();
@@ -132,6 +142,9 @@ public class Main extends Application {
 
         loadScreenController.getPBSplashValue().progressProperty().bind(task.progressProperty());
         loadScreenController.getlProgressLabel().textProperty().bind(task.messageProperty());
+
+        loadScreenController.setClient(client);
+        loadScreenController.setLocalDatabase(localDatabase);
 
         new Thread(task).start();
 

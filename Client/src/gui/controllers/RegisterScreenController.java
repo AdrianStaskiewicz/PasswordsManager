@@ -53,7 +53,7 @@ public class RegisterScreenController extends AbstractScreenController{
     @FXML
     public void SignUp(){
         String request = "reg";
-
+//localDatabase.printInfo();
         client.sendRequest(request);
         //String response=client.getResponse();
     }

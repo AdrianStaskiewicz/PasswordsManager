@@ -27,10 +27,11 @@ public class Client implements Runnable {
     private static boolean closed = false;
 
     public Client() {
-
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Initializing server connector1");
     }
 
     public Client(String[] args) {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Initializing server connector2");
         initializeConnectionParameters(args);
 
         openStreamsAndSocket();
@@ -38,13 +39,14 @@ public class Client implements Runnable {
         if (clientSocket != null && os != null && is != null) {
 
             /* Create a thread to read from the server. */
-            new Thread(new Client()).start();
+            Thread second = new Thread(new Client());
+            second.start();
 
-            while (!closed) {
-//                    sendRequest();
-            }
+//            while (!closed) {
+////                    sendRequest();
+//            }
 
-            closeStreamsAndSocket();
+//            closeStreamsAndSocket();
         }
     }
 
@@ -65,27 +67,34 @@ public class Client implements Runnable {
 
 
     public static void initializeConnectionParameters(String[] args) {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} SERVER CONNECTOR: Initializing connection");
         if (args.length < 2) {
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default host: " + host);
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using default port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} SERVER CONNECTOR: Using default host: " + host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} SERVER CONNECTOR: Using default port number: " + portNumber);
         } else {
             host = args[0];
             portNumber = Integer.valueOf(args[1]).intValue();
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom host: " + host);
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} Using custom port number: " + portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Using custom host: " + host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Using custom port number: " + portNumber);
         }
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Connection initialized successfully");
     }
 
     public static void openStreamsAndSocket() {
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client} SERVER CONNECTOR: Opening streams and socket");
         try {
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Initializing server connector socket");
             clientSocket = new Socket(host, portNumber);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Socket initialized successfully");
             inputLine = new BufferedReader(new InputStreamReader(System.in));
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Initializing streams");
             os = new PrintStream(clientSocket.getOutputStream());
             is = new DataInputStream(clientSocket.getInputStream());
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Streams initialized successfully");
         } catch (UnknownHostException e) {
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Unknown host: " + host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Unknown host: " + host);
         } catch (IOException e) {
-            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Couldn't get I/O for the connection to the host " + host);
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] SERVER CONNECTOR: Couldn't get I/O for the connection to the host " + host);
         }
     }
 

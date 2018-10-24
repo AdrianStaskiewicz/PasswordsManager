@@ -11,8 +11,8 @@ import java.util.ResourceBundle;
 
 public class AbstractScreenController {
     public MainScreenController mainScreenController;
-    private DatabaseConnector localDatabase;
-    private Client client;
+    public DatabaseConnector localDatabase;
+    public Client client;
 
     public Stage primaryStage= new Stage();
     public FXMLLoader loader = new FXMLLoader();
@@ -123,6 +123,7 @@ public class AbstractScreenController {
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setMainScreenController(mainScreenController);
         mainScreenController.setScreen(gridPane);
+        loginScreenController.autologinCheck();
     }
 
     public void goBack(){

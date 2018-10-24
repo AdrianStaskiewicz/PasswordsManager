@@ -82,24 +82,24 @@
                                 <Insets bottom="5.0" left="25.0" right="25.0" top="25.0" />
                             </padding>
                             <children>
-                                <Button fx:id="bSignUp" mnemonicParsing="false" onAction="#SignUp" style="-fx-background-color: #1600c4;" text="Sign up" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                <Button fx:id="bSignUp" mnemonicParsing="false" onAction="#SignUp" style="-fx-background-color: #1600c4;" text="%registerscreen.button.register" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Button>
-                                <Label layoutX="263.0" layoutY="3.0" text="Forename" textFill="#3a3a3a" GridPane.rowIndex="1" />
-                                <Label layoutX="263.0" layoutY="40.0" text="Surename" textFill="#3a3a3a" GridPane.rowIndex="2" />
-                                <Label layoutX="263.0" layoutY="77.0" text="Email" textFill="#3a3a3a" GridPane.rowIndex="3" />
-                                <Label layoutX="263.0" layoutY="114.0" text="Username" textFill="#3a3a3a" GridPane.rowIndex="4" />
-                                <Label layoutX="263.0" layoutY="151.0" text="Password" textFill="#3a3a3a" GridPane.rowIndex="5" />
-                                <Label layoutX="263.0" layoutY="151.0" text="Repeat password" textFill="#3a3a3a" GridPane.rowIndex="6" />
-                                <Label layoutX="263.0" layoutY="151.0" text="Offline account" textFill="#3a3a3a" GridPane.rowIndex="7" />
-                                <TextField fx:id="tfForename" promptText="forename" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <TextField fx:id="tfSurename" promptText="surename" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextField fx:id="tfEmail" promptText="email" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                <TextField fx:id="tfUsername" promptText="username" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                <PasswordField fx:id="pfPassword" promptText="password" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                <PasswordField fx:id="pfRepeatPassword" layoutX="375.0" layoutY="73.0" promptText="repeat password" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                <Label layoutX="263.0" layoutY="3.0" text="%registerscreen.label.forename" textFill="#3a3a3a" GridPane.rowIndex="1" />
+                                <Label layoutX="263.0" layoutY="40.0" text="%registerscreen.label.surename" textFill="#3a3a3a" GridPane.rowIndex="2" />
+                                <Label layoutX="263.0" layoutY="77.0" text="%registerscreen.label.email" textFill="#3a3a3a" GridPane.rowIndex="3" />
+                                <Label layoutX="263.0" layoutY="114.0" text="%registerscreen.label.username" textFill="#3a3a3a" GridPane.rowIndex="4" />
+                                <Label layoutX="263.0" layoutY="151.0" text="%registerscreen.label.password" textFill="#3a3a3a" GridPane.rowIndex="5" />
+                                <Label layoutX="263.0" layoutY="151.0" text="%registerscreen.label.repeatpassword" textFill="#3a3a3a" GridPane.rowIndex="6" />
+                                <Label layoutX="263.0" layoutY="151.0" text="%registerscreen.label.offlineaccount" textFill="#3a3a3a" GridPane.rowIndex="7" />
+                                <TextField fx:id="tfForename" promptText="%registerscreen.textfield.forename" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="tfSurename" promptText="%registerscreen.textfield.surename" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <TextField fx:id="tfEmail" promptText="%registerscreen.textfield.email" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                <TextField fx:id="tfUsername" promptText="%registerscreen.textfield.username" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                <PasswordField fx:id="pfPassword" promptText="%registerscreen.passwordfield.password" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <PasswordField fx:id="pfRepeatPassword" layoutX="375.0" layoutY="73.0" promptText="%registerscreen.passwordfield.repeatpassword" style="-fx-background-color: none; -fx-border-color: #3a3a3a;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="7">
                                     <columnConstraints>
                                         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="44.0" minWidth="16.0" prefWidth="29.0" />
@@ -123,8 +123,8 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Akceptuje" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <Hyperlink fx:id="hRegulations" onAction="#Regulations" text="Regulamin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        <Label text="%registerscreen.label.regulationsacceptance" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Hyperlink fx:id="hRegulations" onAction="#Regulations" text="%registerscreen.link.regulations" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                         <CheckBox fx:id="cAccept" mnemonicParsing="false" GridPane.rowIndex="1" />
                                     </children>
                                 </GridPane>
@@ -136,8 +136,8 @@
         </HBox>
         <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" GridPane.rowIndex="2">
             <children>
-                <Label text="Do you have an account?" textFill="#3a3a3a" />
-                <Button fx:id="bLogIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#LogIn" style="-fx-background-color: none;" text="Log In" textFill="#1600c4" underline="true">
+                <Label text="%registerscreen.label.login" textFill="#3a3a3a" />
+                <Button fx:id="bLogIn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#LogIn" styleClass="link"  stylesheets="@/gui/styles/CommonStyle.css" text="%registerscreen.button.login" textFill="#1600c4" underline="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>

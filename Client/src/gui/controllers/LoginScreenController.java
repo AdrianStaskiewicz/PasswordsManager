@@ -12,8 +12,8 @@ import java.sql.SQLException;
 
 public class LoginScreenController extends AbstractScreenController {
 
-    private DatabaseConnector localDatabase;
-    private Client client;
+    public DatabaseConnector localDatabase;
+    public Client client;
     private String request;
     private String response;
 
@@ -30,13 +30,21 @@ public class LoginScreenController extends AbstractScreenController {
     private Label lNotification;
 
     public void autologinCheck() {
+
+        //client.sendRequest("reg");
+//        localDatabase.connect();
+        localDatabase.printInfo();
+        //SENDING REQUEST TO LOCLA DATABASE HERE
+
+//        localDatabase = new DatabaseConnector();
+//        localDatabase.connect();
         String rememberUser = null;
         try {
             rememberUser = localDatabase.rememberUserCheck();
             if (localDatabase.rememberUserCheck() != null) {
                 String[] parameters = new String[3];
                 parameters = rememberUser.split("\\s");
-                runLoginProcedureForUser(parameters[1], parameters[2]);
+                runLoginProcedureForUser(parameters[0], parameters[1]);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,11 +53,8 @@ public class LoginScreenController extends AbstractScreenController {
 
     @FXML
     public void Login() {
-//        client.sendRequest("PUSTY");
-
-        autologinCheck();
         request = "login ";
-
+        //localDatabase.printInfo();
         if (tfUserName.getText() == null) {
             displayNotification("Username field is empty!");
         } else {
@@ -117,12 +122,40 @@ public class LoginScreenController extends AbstractScreenController {
                 //synchronizuj
             }
         }
-        //loguj
+        //loguj bez procedury chwilowo
+        request="login ";
+        client.sendRequest(request + username + " " + password);
+//                        waitForResponse();
+        response = client.getResponse();
+
+        if (response == null) {
+            while (response == null) {
+                response = client.getResponse();
+            }
+            response = client.getResponse();
+            client.clearResponse();
+        }
+
+        if (response.equals("Welcome in Password Manager")) {
+                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] PUT ANY MESSAGE HERE");
+            goToSelectionScreen();
+            //loguj koniec
+        }else{
+            goToLoginScreen();
+        }
     }
 
     public Boolean connectionCheck() {
         client.sendRequest("check");
         response = client.getResponse();
+
+        if (response == null) {
+            while (response == null) {
+                response = client.getResponse();
+            }
+            response = client.getResponse();
+            client.clearResponse();
+        }
         if (response != null) {
             if (response.equals("ok")) {
                 return true;

@@ -1,6 +1,7 @@
 package gui.controllers;
 
 import database.support.DatabaseConnector;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -11,15 +12,14 @@ import java.util.ResourceBundle;
 
 public class MainScreenController extends AbstractScreenController {
 
-    private DatabaseConnector localDatabase;
-    private Client client;
+    public DatabaseConnector localDatabase;
+    public Client client;
 
     @FXML
     private StackPane mainStackPane;
 
     @FXML
     public void initialize(){
-//       FXMLLoader loader = new FXMLLoader();
         System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Loading view: LOGIN SCREEN");
         loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
         ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
@@ -32,7 +32,9 @@ public class MainScreenController extends AbstractScreenController {
         }
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setMainScreenController(this);
-//        loginScreenController.autologinCheck();
+        loginScreenController.setClient(client);
+        loginScreenController.setLocalDatabase(localDatabase);
+        Platform.runLater(loginScreenController::autologinCheck);//DO OPTYMALIZACJI
         setScreen(gridPane);
     }
 
@@ -41,4 +43,8 @@ public class MainScreenController extends AbstractScreenController {
         mainStackPane.getChildren().add(gridPane);
     }
 
+    @Override
+    public void setLocalDatabase(DatabaseConnector localDatabase) {
+        this.localDatabase = localDatabase;
+    }
 }
