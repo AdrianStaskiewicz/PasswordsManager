@@ -1,19 +1,15 @@
 package gui.controllers;
 
-import database.support.DatabaseConnector;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import server.support.Client;
 
 import java.sql.SQLException;
 
 public class LoginScreenController extends AbstractScreenController {
 
-    public DatabaseConnector localDatabase;
-    public Client client;
     private String request;
     private String response;
 
@@ -30,14 +26,10 @@ public class LoginScreenController extends AbstractScreenController {
     private Label lNotification;
 
     public void autologinCheck() {
-
-        //client.sendRequest("reg");
-//        localDatabase.connect();
+        initializeIfRequired();
         localDatabase.printInfo();
-        //SENDING REQUEST TO LOCLA DATABASE HERE
+        //SENDING REQUEST TO LOCAL DATABASE HERE
 
-//        localDatabase = new DatabaseConnector();
-//        localDatabase.connect();
         String rememberUser = null;
         try {
             rememberUser = localDatabase.rememberUserCheck();
@@ -51,10 +43,21 @@ public class LoginScreenController extends AbstractScreenController {
         }
     }
 
+    private void initializeIfRequired() {
+        if (mainScreenController.localDatabase != null && localDatabase == null) {
+            localDatabase = mainScreenController.localDatabase;
+        }
+
+        if (mainScreenController.client != null && client == null) {
+            client = mainScreenController.client;
+        }
+    }
+
     @FXML
     public void Login() {
         request = "login ";
-        //localDatabase.printInfo();
+//        localDatabase.connect();
+        localDatabase.printInfo();
         if (tfUserName.getText() == null) {
             displayNotification("Username field is empty!");
         } else {
@@ -71,11 +74,11 @@ public class LoginScreenController extends AbstractScreenController {
 //                        waitForResponse();
                         response = client.getResponse();
 
-                        if(response==null){
-                            while(response==null){
-                                response=client.getResponse();
+                        if (response == null) {
+                            while (response == null) {
+                                response = client.getResponse();
                             }
-                            response=client.getResponse();
+                            response = client.getResponse();
                             client.clearResponse();
                         }
 
@@ -123,7 +126,7 @@ public class LoginScreenController extends AbstractScreenController {
             }
         }
         //loguj bez procedury chwilowo
-        request="login ";
+        request = "login ";
         client.sendRequest(request + username + " " + password);
 //                        waitForResponse();
         response = client.getResponse();
@@ -137,10 +140,10 @@ public class LoginScreenController extends AbstractScreenController {
         }
 
         if (response.equals("Welcome in Password Manager")) {
-                System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] PUT ANY MESSAGE HERE");
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] PUT ANY MESSAGE HERE");
             goToSelectionScreen();
             //loguj koniec
-        }else{
+        } else {
             goToLoginScreen();
         }
     }
@@ -173,18 +176,18 @@ public class LoginScreenController extends AbstractScreenController {
         pfPassword.clear();
     }
 
-    @Override
-    public void setMainScreenController(MainScreenController mainScreenController) {
-        this.mainScreenController = mainScreenController;
-    }
-
-    @Override
-    public void setLocalDatabase(DatabaseConnector localDatabase) {
-        this.localDatabase = localDatabase;
-    }
-
-    @Override
-    public void setClient(Client client) {
-        this.client = client;
-    }
+//    @Override
+//    public void setMainScreenController(MainScreenController mainScreenController) {
+//        this.mainScreenController = mainScreenController;
+//    }
+//
+//    @Override
+//    public void setLocalDatabase(DatabaseConnector localDatabase) {
+//        this.localDatabase = localDatabase;
+//    }
+//
+//    @Override
+//    public void setClient(Client client) {
+//        this.client = client;
+//    }
 }

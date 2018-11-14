@@ -1,65 +1,29 @@
 package gui.controllers;
 
 import database.support.DatabaseConnector;
+import javafx.fxml.FXML;
+import server.support.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import server.support.Client;
-
 import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class AbstractScreenController {
     public MainScreenController mainScreenController;
-    public DatabaseConnector localDatabase;
-    public Client client;
+    public DatabaseConnector localDatabase;// = new DatabaseConnector();
+    public Client client;// = new Client();
 
     public Stage primaryStage= new Stage();
     public FXMLLoader loader = new FXMLLoader();
 
-    /*@FXML
+    @FXML
     public void initialize(){
-        loader.setLocation(this.getClass().getResource("/gui/scopes/MainScreen.fxml"));
-        StackPane stackpane = null;
-        try {
-            stackpane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        MainScreenController mainScreenController = loader.getController();
-        //mainScreenController.setClient(client);
-
-        Scene scene = new Scene(stackpane,600,400);
-        primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-//        primaryStage.setTitle("PasswordsManager 1.0.0");
-        primaryStage.show();
-//        primaryStage.close();
-
-        onInit();
-        afterInit();
-    }*/
-
-    public void onInit(){
 
     }
 
-    public void afterInit(){
-
-    }
-
-    public void setFullScreen(){
-        this.primaryStage.setFullScreen(true);
-//        this.primaryStage.show()
-    }
-
-    public void setScreen(){
-    }
-
-    public void goToScreen(){
-        //LoadScreenController loadScreenController = new LoadScreenController();
-        //loadScreenController.initialize();
+    public void setStage(Stage stage){
+        this.primaryStage=stage;
     }
 
     public void setMainScreenController(MainScreenController mainScreenController) {
@@ -88,6 +52,8 @@ public class AbstractScreenController {
         }
         SelectionScreenController selectionScreenController = loader.getController();
         selectionScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
+        selectionScreenController.setLocalDatabase(mainScreenController.localDatabase);
+        selectionScreenController.setClient(mainScreenController.client);
         mainScreenController.setScreen(gridPane);
     }
 
@@ -105,6 +71,8 @@ public class AbstractScreenController {
         }
         RegisterScreenController registerScreenController = loader.getController();
         registerScreenController.setMainScreenController(mainScreenController);//PRZEKAZUJE KONTROLER DO MAINA NIE DO THIS
+        registerScreenController.setLocalDatabase(mainScreenController.localDatabase);
+        registerScreenController.setClient(mainScreenController.client);
         mainScreenController.setScreen(gridPane);
     }
 
@@ -122,11 +90,9 @@ public class AbstractScreenController {
         }
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setMainScreenController(mainScreenController);
+        loginScreenController.setLocalDatabase(mainScreenController.localDatabase);
+        loginScreenController.setClient(mainScreenController.client);
         mainScreenController.setScreen(gridPane);
         loginScreenController.autologinCheck();
-    }
-
-    public void goBack(){
-
     }
 }

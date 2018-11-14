@@ -1,0 +1,36 @@
+.bodybg{
+    -fx-background-color: #171717;
+}
+
+.button{
+    -fx-background-color: blue;
+    -fx-background-radius: 0,0,0;
+    -fx-background-insets: 0,0,0;
+    -fx-text-fill: white;
+}
+
+.link{
+    -fx-background-color: none;
+    -fx-text-fill: blue;
+}
+.label{
+    -fx-text-fill: #555555;
+}
+
+.logo{
+    -fx-text-fill: #FFFFFF;
+}
+
+.check-box .box {
+    -fx-background-color: none;
+    -fx-border-color:#555555;
+    -fx-border-radius:0px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: blue;
+}
+
+.check-box:selected .box {
+    -fx-background-color: none;
+}

@@ -1,31 +1,26 @@
 package gui.controllers;
 
 import database.support.DatabaseConnector;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import server.support.Client;
 
-import java.net.URL;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
-public class LoadScreenController extends AbstractScreenController implements Initializable {
+public class LoadScreenController {
 
-    private MainScreenController mainScreenController;
-    private DatabaseConnector localDatabase;
     private Client client;
-
-    private String tmp;
-    private GridPane gridPane = null;
-
-    private double value = 0.0;
+    private DatabaseConnector localDatabase;
+    private Stage primaryStage;
 
     @FXML
     private ProgressBar pbProgressBar;
@@ -33,84 +28,133 @@ public class LoadScreenController extends AbstractScreenController implements In
     @FXML
     private Label lProgressLabel;
 
-    Task copyWorker;
-    Scene scene;
-    public Stage stage;
+    @FXML
+    public void initialize() {
+//        super.initialize();
+        getPBSplashValue().progressProperty().bind(task.progressProperty());
+        getlProgressLabel().textProperty().bind(task.messageProperty());
+        this.afterInit();
+    }
 
-    public ProgressBar getPBSplashValue()
-    {
+    public void afterInit() {
+        System.out.println("ROZPOCZECIE LADOWANIA");
+        new Thread(task).start();
+
+        SLinit.start();
+
+        task.setOnSucceeded((Event event) -> {
+            System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Loading view: MAIN SCREEN");
+            FXMLLoader innerLoader = new FXMLLoader(getClass().getResource("/gui/scopes/MainScreen.fxml"));
+            ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
+            innerLoader.setResources(bundle);
+            try {
+                Stage stage = new Stage();
+                Parent innerRoot = innerLoader.load();
+                MainScreenController mainScreenController = innerLoader.getController();
+                mainScreenController.setClient(client);
+                mainScreenController.setLocalDatabase(localDatabase);
+                stage.setTitle("PasswordsManager 1.0.0");
+                stage.setScene(new Scene(innerRoot, 800, 500));
+                stage.setMaximized(true);
+                stage.show();
+                primaryStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public String message = new String();
+    public Integer progress = 0;
+
+    final Task task = new Task<Void>() {
+        @Override
+        protected Void call() throws Exception {
+            for (int i = 1; i <= 100000000; i++) {
+                updateProgress(i, 100000000);
+                updateMessage(message + i / 1000000 + "%");
+            }
+            while (client == null || localDatabase == null) {
+
+            }
+            return null;
+        }
+    };
+
+    Thread SLinit = new Thread(this::initializeApplication);
+    Thread SCinit = new Thread(this::initializeClient);
+    Thread LDBCinit = new Thread(this::initializeLocalDatabaseConnector);
+    Thread CWLDB = new Thread(this::connectWithLocalDatabase);
+
+    public ProgressBar getPBSplashValue() {
         return pbProgressBar;
     }
 
-    public Label getlProgressLabel(){
+    public Label getlProgressLabel() {
         return lProgressLabel;
     }
 
-    @Override
-    public void afterInit() {
-        this.pbProgressBar.setProgress(0.0);
-        this.copyWorker = createWorker();
-        this.pbProgressBar.progressProperty().unbind();
-        this.pbProgressBar.progressProperty().bind(copyWorker.progressProperty());
-
-        copyWorker.messageProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                System.out.println(newValue);
-                lProgressLabel.setText(newValue);
-                if (pbProgressBar.getProgress() >= 0.99) {
-                }
-            }
-
-        });
-
-        Thread t1 = new Thread(copyWorker);
-        t1.start();
+    private void initializeClient() {
+        String[] arg = new String[1];
+        client = new Client(arg);
+        System.out.println("SCinit finished");
     }
 
-    public Task createWorker() {
-        return new Task() {
-            @Override
-            protected Object call() throws Exception {
-                for (int i = 0; i <= 100; i++) {
-                    //load settings here
-                    //set a correct info and percentage here
-                    Thread.sleep(50);
-                    updateMessage("Task Completed : " + ((i)) + "%");
-                    updateProgress(i, 100);
-                }
-                return true;
-            }
-        };
+    private void initializeLocalDatabaseConnector() {
+        localDatabase = new DatabaseConnector();
+        localDatabase.name = "LDBC A";
+        System.out.println("LDBCinit finished");
     }
 
-    public void setPbProgressBar(double value) {
-        //pbProgressBar.setProgress(this.getProgressValue()/100);
-        pbProgressBar.setProgress(value);
+    private void connectWithLocalDatabase() {
+        localDatabase.connect();
+        System.out.println("CWLDB finished");
     }
 
-    /*public void setlProgressLabel() {
-        lProgressLabel.setText(this.getProgressInfo());
-    }*/
-
-
-    public void updateProgressBar(double value) {
-        pbProgressBar.setProgress(value);
+    private static DatabaseConnector createLocalDatabaseConnector() {
+        return new DatabaseConnector();
     }
 
-    public void setMainScreenController(MainScreenController mainScreenController) {
-        this.mainScreenController = mainScreenController;
+    private static void waitForThreadFinish(Thread thread) {
+        while (thread.isAlive()) {
+
+        }
     }
 
-    public void setLocalDatabase(DatabaseConnector localDatabase){
-        this.localDatabase = localDatabase;
+    private void initializeApplication() {
+        try {
+            message = "Tworzenie instacji klienta lokalnej bazy danych";
+            Thread.sleep(2000);
+            LDBCinit.start();
+            waitForThreadFinish(LDBCinit);
+            message = "Nawiazywanie polaczenia z lokalna baza danych ";
+            Thread.sleep(2000);
+            CWLDB.start();
+            waitForThreadFinish(CWLDB);
+            message = "Tworzenie instancji klienta ";
+            Thread.sleep(2000);
+            SCinit.start();
+            waitForThreadFinish(SCinit);
+            message = "Nawiazywanie polaczenia z serwerem ";
+
+            message = "Sprawdzanie poprawnosci polaczenia ";
+
+            message = "Weryfikowanie polaczenia ze zdalna baza danych ";
+
+            message = "Pobieranie ustawien systemu ";
+            //dopoki zaciaga dane z ustawieniami systemu
+            message = "Ladowanie ustawien systemu";
+//            progress = 0;
+            message = "Sprawdzanie aktualizacji ";
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setStage(Stage stage) {
+        this.primaryStage = stage;
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 }

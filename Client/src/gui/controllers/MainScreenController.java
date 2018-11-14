@@ -12,18 +12,18 @@ import java.util.ResourceBundle;
 
 public class MainScreenController extends AbstractScreenController {
 
-    public DatabaseConnector localDatabase;
-    public Client client;
-
     @FXML
     private StackPane mainStackPane;
 
     @FXML
-    public void initialize(){
-        System.err.println(utilities.DateTimeFormatter.getDateTime()+" [LOG] [Client] Loading view: LOGIN SCREEN");
+    public void initialize() {
+        super.initialize();
+
+        System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Loading view: LOGIN SCREEN");
         loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
         ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
         loader.setResources(bundle);
+
         GridPane gridPane = null;
         try {
             gridPane = loader.load();
@@ -32,19 +32,35 @@ public class MainScreenController extends AbstractScreenController {
         }
         LoginScreenController loginScreenController = loader.getController();
         loginScreenController.setMainScreenController(this);
-        loginScreenController.setClient(client);
-        loginScreenController.setLocalDatabase(localDatabase);
+        loginScreenController.setLocalDatabase(this.localDatabase);
+        loginScreenController.setClient(this.client);
+
         Platform.runLater(loginScreenController::autologinCheck);//DO OPTYMALIZACJI
         setScreen(gridPane);
     }
+public void startScreen(){
+    System.err.println(utilities.DateTimeFormatter.getDateTime() + " [LOG] [Client] Loading view: LOGIN SCREEN");
+    loader.setLocation(this.getClass().getResource("/gui/scopes/LoginScreen.fxml"));
+    ResourceBundle bundle = ResourceBundle.getBundle("gui.resources.lang");
+    loader.setResources(bundle);
 
-    public void setScreen(GridPane gridPane){
+    GridPane gridPane = null;
+    try {
+        gridPane = loader.load();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    LoginScreenController loginScreenController = loader.getController();
+    loginScreenController.setMainScreenController(this);
+    loginScreenController.setLocalDatabase(this.localDatabase);
+    loginScreenController.setClient(this.client);
+
+    Platform.runLater(loginScreenController::autologinCheck);//DO OPTYMALIZACJI
+    setScreen(gridPane);
+}
+    public void setScreen(GridPane gridPane) {
         mainStackPane.getChildren().clear();
         mainStackPane.getChildren().add(gridPane);
     }
 
-    @Override
-    public void setLocalDatabase(DatabaseConnector localDatabase) {
-        this.localDatabase = localDatabase;
-    }
 }
